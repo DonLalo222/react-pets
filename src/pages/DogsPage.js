@@ -6,42 +6,36 @@ export default function DogsPage() {
   const [inputUser, setInputUser] = useState("");
 
   useEffect(() => {
+    const getData = async () => {
+      if (inputUser && inputUser.length > 3) {
+        const data = await Search(inputUser.trim());
+        setDogs(data.result);
+      }
+    };
     getData();
-  }, []);
-
-  const getData = async (input) => {
-    const data = await Search(input);
-    setDogs(data.result);
-  };
+  }, [inputUser]);
 
   const onKeyUp = (event) => {
     if (event.charCode === 13) {
-      if (inputUser) {
-        getData(inputUser);
+      const value = event.target.value;
+      if (value && value.length > 3) {
+        setInputUser(value);
       }
     }
   };
 
-  const handleText = (event) => {
-    if (event.target.value) {
-      setInputUser(event.target.value);
-    }
-  };
-
   return (
-    <div className="container mx-auto bg-gray-200 p-2">
+    <div className="container mx-auto p-2">
       <h1 className="text-2xl">Perros</h1>
       <hr />
       <br />
       <input
         type="input"
-        onChange={handleText}
         onKeyPress={onKeyUp}
         className="w-48 md:w-full h-auto text-center border border-transparent focus:outline-none focus:ring-2 focus:ring-green-400 rounded shadow-lg"
       />
       {dogs.map((item) => (
-        <div>{item.name}</div>
-      ))}
+        <div value={item.url}>{item.name}</div>))}
     </div>
   );
 }
