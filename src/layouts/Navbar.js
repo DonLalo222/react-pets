@@ -12,6 +12,9 @@ export default function Navbar() {
       <div className="inline-block hover:text-gray-800">
         <Link to="/dogs">Perros</Link>
       </div>
+      <div className="inline-block hover:text-gray-800">
+        <Link to="/cats">Gatos</Link>
+      </div>
     </div>
   );
 }
